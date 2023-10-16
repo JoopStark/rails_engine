@@ -7,8 +7,12 @@ Rails.application.routes.draw do
       resources :items do
         resources :merchants, only: :index
       end
-      get '/merchants/single_search', to: 'merchants#single_search'
-      get '/items/search', to: 'items#search'
+      namespace :merchants do
+        resources :search, only: :show
+      end
+      namespace :items do
+        resources :search, only: :index
+      end
     end
   end
 end
