@@ -1,11 +1,8 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/models/item.rb": {
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/models/merchant.rb": {
         "lines": [
-          1,
-          1,
-          1,
           1,
           1,
           1,
@@ -20,12 +17,27 @@
           null
         ]
       },
-      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/models/merchant.rb": {
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
           1,
           1,
           1,
           null,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/api/v1/application_controller.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
           null
         ]
       },
@@ -43,14 +55,6 @@
         "lines": [
           0,
           0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/api/v1/application_controller.rb": {
-        "lines": [
           0,
           0
         ],
@@ -79,27 +83,6 @@
         "branches": {
         }
       },
-      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/api/v1/merchants_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/application_controller.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
       "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -122,8 +105,22 @@
         ],
         "branches": {
         }
+      },
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/models/item.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
       }
     },
-    "timestamp": 1697513522
+    "timestamp": 1697515002
   }
 }
