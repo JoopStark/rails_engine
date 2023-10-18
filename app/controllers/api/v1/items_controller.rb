@@ -4,6 +4,15 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
   end
 
   def create
+    item = Item.create(item_params)
+    if item.save
+      response.body = ItemSerializer.new(item)
+      head 201
+    else
+      # error message
+      head 401
+    end
+
   end
 
   def show
@@ -14,6 +23,8 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
   end
 
   def destroy
+    Item.find(params[:id])
+        .destroy
   end
 
   private
@@ -24,5 +35,9 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
     else
       Item.all
     end
+  end
+
+  def item_params
+    params[:item].permit(:name, :description, :unit_price, :merchant_id)
   end
 end

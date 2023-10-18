@@ -31,6 +31,7 @@ describe "Merchant API" do
     get "/api/v1/merchants/#{@merchant_1.id}"
 
     expect(response).to be_successful
+    # binding.pry
 
     merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
