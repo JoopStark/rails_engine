@@ -4,10 +4,17 @@ class Api::V1::MerchantsController < Api::V1::ApplicationController
   end
   
   def show
+      render json: MerchantSerializer.new(show_argument)
+  end
+  
+  private
+
+  def show_argument
     if params[:item_id]
-      render json: MerchantSerializer.new(Item.find_by_id(params[:item_id]).merchant)
+      Item.find_by_id(params[:item_id]).merchant
     else
-      render json: MerchantSerializer.new(Merchant.find(params[:id]))
+      Merchant.find(params[:id])
     end
   end
+  
 end

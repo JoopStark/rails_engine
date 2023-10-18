@@ -17,6 +17,18 @@
           null
         ]
       },
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/models/item.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
       "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
           1,
@@ -25,6 +37,18 @@
           null,
           null,
           1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          0,
+          null,
+          1,
+          null,
+          null,
           null,
           null
         ]
@@ -38,6 +62,16 @@
       "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/controllers/application_controller.rb": {
         "lines": [
           1,
+          null
+        ]
+      },
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/serializers/merchant_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null,
           null
         ]
       },
@@ -66,6 +100,14 @@
           0,
           0,
           0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
           null,
           0,
           0,
@@ -74,8 +116,12 @@
           0,
           null,
           0,
-          0,
           null,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0
@@ -106,14 +152,12 @@
         "branches": {
         }
       },
-      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/models/item.rb": {
+      "/Users/joop_stark/turing_work/3mod/projects/rails_engine/app/serializers/item_serializer.rb": {
         "lines": [
           0,
           0,
           0,
-          0,
-          0,
-          0,
+          null,
           null,
           0
         ],
@@ -121,6 +165,6 @@
         }
       }
     },
-    "timestamp": 1697515002
+    "timestamp": 1697597097
   }
 }
