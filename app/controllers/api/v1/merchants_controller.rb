@@ -4,7 +4,11 @@ class Api::V1::MerchantsController < Api::V1::ApplicationController
   end
   
   def show
-      render json: MerchantSerializer.new(show_argument)
+    if params[:item_id]
+      render_merchant_by_item
+    else
+      render json: MerchantSerializer.new(Merchant.find(params[:id]))
+    end
   end
 
   def find
@@ -13,12 +17,13 @@ class Api::V1::MerchantsController < Api::V1::ApplicationController
   
   private
 
-  def show_argument
-    if params[:item_id]
-      Item.find_by_id(params[:item_id]).merchant
+  def render_merchant_by_item
+    if Item.where(id: params[:item_id]).empty?
+      head 404
+    elsif is_not_an_integer?(params[:item_id])
+      head 404
     else
-      Merchant.find(params[:id])
+      render json: MerchantSerializer.new(Item.find_by_id(params[:item_id]).merchant)
     end
   end
-  
 end

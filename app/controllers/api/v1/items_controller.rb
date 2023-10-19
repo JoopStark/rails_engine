@@ -1,6 +1,10 @@
 class Api::V1::ItemsController < Api::V1::ApplicationController
   def index
-    render json: ItemSerializer.new(index_argument)
+    if params[:merchant_id]
+      render_item_by_merchant
+    else
+      render json: ItemSerializer.new(Item.all)
+    end
   end
 
   def create
@@ -25,7 +29,7 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
       head 201
       response.body = ItemSerializer.new(Item.find(item.id)).to_json
     else
-      #error
+      head 404
     end
   end
 
@@ -34,48 +38,20 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
         .destroy
   end
 
-  # def find_all
-  #   render json: ItemSerializer.new(Item.search(params[:name], 
-  #                                                    params[:min_price], 
-  #                                                    params[:max_price]))
-  # end
-
   def find_all
-    new_name = if params[:name] == " " 
-                  nil
-              else
-                params[:name]
-              end
-    new_min = if params[:min_price] 
-                params[:min_price] 
-              else 
-                0
-              end
-    new_max = if params[:max_price] 
-                params[:max_price] 
-              else
-                1e999
-              end
-
     if (new_name && params[:min_price] || 
                     params[:max_price])
       head 400
-    # elsif (params[:min_price]&.to_i&.negative? ||
-    #       params[:max_price]&.to_i&.negative?)
-    #   head 400
-    # elsif ([params[:min_price]&.to_i, params[:max_price]&.to_i].any? { |n| n < 0 })
-    # binding.pry
-    #   head 400
-    elsif params[:min_price].include?"-"
+    elsif (params[:min_price]&.to_i&.negative? ||
+          params[:max_price]&.to_i&.negative?)
       head 400
     elsif new_name  
       render json: ItemSerializer.new(Item.where("name ILIKE ?", "%#{new_name}%"))
-    else
+    elsif (params[:min_price] || params[:min_price])
       render json: ItemSerializer.new(Item.where("unit_price > ? AND unit_price < ?", new_min, new_max))
+    else
+      head 400
     end
-
-
-
   end
 
   private
@@ -88,16 +64,41 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
     end
   end
 
+  def render_item_by_merchant
+    if Merchant.where(id: params[:merchant_id]).empty?
+      head 404
+    elsif is_not_an_integer?(params[:merchant_id])
+      head 404
+    else
+      render json: ItemSerializer.new(Merchant.find_by_id(params[:merchant_id]).items)
+    end
+  end
+
   def item_params
     params[:item].permit(:name, :description, :unit_price, :merchant_id)
   end
   
   def new_name
-    if params[:name] == " " 
+    if params[:name] == "" 
       nil
     else
       params[:name]
     end
   end
 
+  def new_min 
+    if params[:min_price] 
+      params[:min_price] 
+    else 
+      0
+    end
+  end
+
+  def new_max
+    if params[:max_price] 
+      params[:max_price] 
+    else
+      1e999
+    end
+  end
 end
