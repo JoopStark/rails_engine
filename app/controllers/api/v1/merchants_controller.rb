@@ -6,6 +6,10 @@ class Api::V1::MerchantsController < Api::V1::ApplicationController
   def show
       render json: MerchantSerializer.new(show_argument)
   end
+
+  def find
+    render json: MerchantSerializer.new(Merchant.name_search(params[:name]))
+  end
   
   private
 
