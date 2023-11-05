@@ -18,9 +18,9 @@ class Api::V1::MerchantsController < Api::V1::ApplicationController
   private
 
   def render_merchant_by_item
-    if Item.where(id: params[:item_id]).empty?
+    if is_not_an_integer?(params[:item_id]) #this is superfluous but could give better errors later.
       head 404
-    elsif is_not_an_integer?(params[:item_id])
+    elsif Item.where(id: params[:item_id]).empty?
       head 404
     else
       render json: MerchantSerializer.new(Item.find_by_id(params[:item_id]).merchant)

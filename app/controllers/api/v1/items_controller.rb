@@ -20,7 +20,6 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
 
   def show
     render json: ItemSerializer.new(Item.find(params[:id]))
-    # response.body = ItemSerializer.new(Item.find(params[:id])).to_json
   end
 
   def update
@@ -39,15 +38,15 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
   end
 
   def find_all
-    if (new_name && params[:min_price] || 
-                    params[:max_price])
+    if (new_name && (params[:min_price] || 
+                    params[:max_price]))
       head 400
     elsif (params[:min_price]&.to_i&.negative? ||
           params[:max_price]&.to_i&.negative?)
-      head 400
+          head 400
     elsif new_name  
       render json: ItemSerializer.new(Item.where("name ILIKE ?", "%#{new_name}%"))
-    elsif (params[:min_price] || params[:min_price])
+    elsif (params[:min_price] || params[:max_price])
       render json: ItemSerializer.new(Item.where("unit_price > ? AND unit_price < ?", new_min, new_max))
     else
       head 400
@@ -56,18 +55,10 @@ class Api::V1::ItemsController < Api::V1::ApplicationController
 
   private
 
-  def index_argument
-    if params[:merchant_id]
-      Merchant.find_by_id(params[:merchant_id]).items
-    else
-      Item.all
-    end
-  end
-
   def render_item_by_merchant
-    if Merchant.where(id: params[:merchant_id]).empty?
+    if is_not_an_integer?(params[:merchant_id])
       head 404
-    elsif is_not_an_integer?(params[:merchant_id])
+    elsif Merchant.where(id: params[:merchant_id]).empty?
       head 404
     else
       render json: ItemSerializer.new(Merchant.find_by_id(params[:merchant_id]).items)
